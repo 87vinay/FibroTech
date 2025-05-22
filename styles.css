@@ -42,12 +42,15 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 0;
+  padding: 10px 0;
+  position: relative;
 }
 
 .logo {
   display: flex;
   align-items: center;
+  flex: 1;
+  z-index: 1001;
 }
 
 .logo img {
@@ -59,16 +62,25 @@ header {
   font-size: 24px;
   font-weight: 700;
   color: var(--primary);
+  line-height: 1.2;
 }
 
 .logo-subtext {
   font-size: 12px;
   color: var(--gray);
+  line-height: 1;
+}
+
+nav {
+  display: flex;
+  align-items: center;
 }
 
 nav ul {
   display: flex;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 nav ul li {
@@ -81,6 +93,8 @@ nav ul li a {
   font-weight: 500;
   transition: color 0.3s ease;
   position: relative;
+  display: block;
+  padding: 5px 0;
 }
 
 nav ul li a:hover {
@@ -105,15 +119,43 @@ nav ul li a:hover::after {
 .mobile-toggle {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  z-index: 1001;
+  position: relative;
+}
+
+.mobile-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .mobile-toggle span {
-  width: 25px;
-  height: 3px;
+  width: 24px;
+  height: 2px;
   background-color: var(--dark);
-  margin: 3px 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+  border-radius: 1px;
+  transform-origin: center;
+}
+
+.mobile-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-toggle.active span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.mobile-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* Hero Section */
@@ -703,6 +745,14 @@ footer {
   .contact-form {
     margin-top: 30px;
   }
+
+  .logo-text {
+    font-size: 20px;
+  }
+
+  .logo-subtext {
+    font-size: 11px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -710,28 +760,57 @@ footer {
     display: flex;
   }
 
+  .header-container {
+    padding: 12px 0;
+  }
+  .logo {
+    padding-left: 8px;
+  }
   nav ul {
     position: fixed;
-    top: 80px;
+    top: 0;
     left: 0;
     width: 100%;
+    height: 100vh;
     background-color: var(--white);
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transform: translateY(-150%);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
     opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    z-index: 999;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
   }
 
   nav ul.active {
-    transform: translateY(0);
+    transform: translateX(0);
     opacity: 1;
+    visibility: visible;
   }
 
   nav ul li {
-    margin: 15px 0;
+    margin: 0 0 30px 0;
+    text-align: center;
+  }
+
+  nav ul li a {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    background-color: var(--light);
+    color: var(--primary);
+  }
+
+  nav ul li a::after {
+    display: none;
   }
 
   .hero-content {
@@ -773,18 +852,96 @@ footer {
     width: 48%;
     margin-bottom: 30px;
   }
+
+  .logo-text {
+    font-size: 18px;
+  }
+
+  .logo-subtext {
+    font-size: 10px;
+  }
 }
 
 @media (max-width: 576px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .header-container {
+    padding: 10px 0;
+  }
+  .logo {
+    padding-left: 12px;
+  }
+  .logo-text {
+    font-size: 16px;
+  }
+
+  .logo-subtext {
+    font-size: 9px;
+  }
+
+  .mobile-toggle {
+    width: 35px;
+    height: 35px;
+  }
+
+  .mobile-toggle span {
+    width: 20px;
+    height: 2px;
+  }
+
   .hero h1 {
-    font-size: 30px;
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  .hero p {
+    font-size: 16px;
   }
 
   .section-title {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .footer-column {
     width: 100%;
+  }
+
+  .stat-item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 24px;
+  }
+  .logo {
+    padding-left: 15px;
+  }
+  .logo-text {
+    font-size: 14px;
+  }
+
+  .logo-subtext {
+    font-size: 8px;
+  }
+
+  .mobile-toggle {
+    width: 32px;
+    height: 32px;
+  }
+
+  .mobile-toggle span {
+    width: 18px;
+    height: 2px;
+    margin: 1.5px 0;
   }
 }
